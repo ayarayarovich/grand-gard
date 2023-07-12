@@ -1,0 +1,10 @@
+[tool.ruff]
+extend-exclude = [
+    "alembic",
+    "venv",
+]
+unfixable = ["E712"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402", "F401"]
+"*DAL.py" = ["E712"]
