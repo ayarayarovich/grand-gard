@@ -1,5 +1,3 @@
 .ruff_cache
 venv
-alembic
-alembic.ini
 __pycache__
