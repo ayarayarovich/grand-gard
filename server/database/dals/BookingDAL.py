@@ -85,3 +85,18 @@ class BookingDAL:
         res = await self.session.execute(query)
         his_bookings = res.scalar_one_or_none()
         return list(his_bookings)
+
+    async def is_room_booked(self, room_id: int, date_in: date, date_out: date):
+        query = (
+            select(Booking)
+            .where(Booking.room_id == room_id)
+            .where(
+                (Booking.date_in.between(date_in, date_out) | Booking.date_out.between(date_in, date_out))
+                & Booking.room_id == room_id
+            )
+            .limit(1)
+        )
+
+        res = await self.session.execute(query)
+        booking = res.scalar_one_or_none()
+        return booking is None
