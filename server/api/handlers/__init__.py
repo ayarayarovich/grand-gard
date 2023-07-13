@@ -5,4 +5,5 @@ from .services import services_router
 from .posts import posts_router
 from .roomOrders import roomOrders_router
 from .bookings import bookings_router
+from .serviceOrders import serviceOrders_router
 
