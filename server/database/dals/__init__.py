@@ -6,3 +6,4 @@ from .RoomDAL import RoomDAL
 from .ServiceDAL import ServiceDAL
 
 from .RoomOrderDAL import RoomOrderDAL
+from .ServiceOrderDAL import ServiceOrderDAL
