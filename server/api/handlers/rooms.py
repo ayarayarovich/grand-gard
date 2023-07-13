@@ -27,12 +27,14 @@ async def create_room(
 
         return new_room
 
-@rooms_router.get("/{id}", response_model=RoomShow) #предоставление информации
+@rooms_router.get("/{id}",response_model=RoomShow) #предоставление информации
 async def get_room_by_id(
     id: int, session: Annotated[AsyncSession, Depends(get_db_session)]
 ):
     async with session.begin():
         room_dal = RoomDAL(session)
+
+
 
         room = await room_dal.get_room_by_id(id)
         if room is None:
@@ -46,6 +48,7 @@ async def get_room_by_id(
 @rooms_router.put("/{id}", response_model=RoomShow) #обновление
 async def update_room(
     id: int,
+
     values_to_update: RoomUpdate,
     session: Annotated[AsyncSession, Depends(get_db_session)],
 ):
