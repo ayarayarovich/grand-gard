@@ -100,3 +100,7 @@ class BookingDAL:
         res = await self.session.execute(query)
         booking = res.scalar_one_or_none()
         return booking is None
+
+
+
+
