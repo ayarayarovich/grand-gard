@@ -20,7 +20,7 @@ async def create_client(
         old_client = await client_dal.get_client_by_email(client.email)
         if old_client:
             raise create_http_exception(
-                status_code=403,
+                status_code=409,
                 reason="client with provided email already exists",
                 email=client.email,
             )
@@ -78,3 +78,18 @@ async def update_client(
         )
 
         return {"id": updated_client_id}
+
+
+@clients_router.delete("/{id}")
+async def delete_client(id: int, session: Annotated[AsyncSession, Depends(get_db_session)]):
+
+    async with session.begin():
+        clients_dal = ClientDAL(session)
+
+        room = await clients_dal.get_client_by_id(id)
+        if room is None:
+            raise create_http_exception(
+                status_code=404, reason="client with provided id does not exist", id=id
+            )
+        deleted_clients_id = await clients_dal.delete_client(id)
+        return {deleted_clients_id: "is deleted"}
